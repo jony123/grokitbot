@@ -36,6 +36,10 @@ class GrokItBot(irc.IRCClient):
     print "Joined %s." % (channel,)
 
   def privmsg(self, user, channel, msg):
+    if "alex" in msg or "Alex" in msg:   # Checking to see if the message is directed to the bot.
+      print msg
+    else:
+      return
     if msg.startswith('*** '):
       print msg
       return
@@ -46,10 +50,6 @@ class GrokItBot(irc.IRCClient):
       prefix = "%s: " % (user.split('!', 1)[0], )
     else:
       prefix = ''
-    if "Alex" in msg:
-      print msg
-    else:
-      return
     sentence = self.factory.aiml.on_MSG_IN(user.split('!', 1)[0],msg)
     self.msg(self.factory.channel, prefix + sentence)
 
