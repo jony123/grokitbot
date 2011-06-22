@@ -46,7 +46,10 @@ class GrokItBot(irc.IRCClient):
       prefix = "%s: " % (user.split('!', 1)[0], )
     else:
       prefix = ''
-
+    if "Alex" in msg:
+      print msg
+    else:
+      return
     sentence = self.factory.aiml.on_MSG_IN(user.split('!', 1)[0],msg)
     self.msg(self.factory.channel, prefix + sentence)
 
@@ -72,9 +75,9 @@ if __name__ == "__main__":
     channel = sys.argv[2]
     password = sys.argv[3]
   else:
-    nickname = 'GrokItBot'
-    channel = 'suttree.com'
+    nickname = 'Alex'
+    channel = '#subtlefuge'
     password = ''
 
-  reactor.connectTCP('irc.pmog.com', 6667, GrokItBotFactory('#' + channel, nickname, password))
+  reactor.connectTCP('irc.subtlefuge.com', 6667, GrokItBotFactory('#' + channel, nickname, password))
   reactor.run()
